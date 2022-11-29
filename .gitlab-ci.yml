@@ -1,0 +1,11 @@
+deploy:
+  stage: deploy
+  script:
+    - apt-get update -yq
+    - apt-get install -y ruby ruby-dev rubygems-integration
+    - gem install faraday -v 1.10.0
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP_ID --api-key=$HEROKU_API_KEY
+  only:
+    refs:
+      - master
